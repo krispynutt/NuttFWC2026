@@ -410,7 +410,10 @@ let firebaseReady = false;
 let adminUnlocked = sessionStorage.getItem('wc2026_admin') === 'true';
 
 stateRef.onSnapshot(doc => {
-  if (!doc.exists) { stateRef.set({ family: [], predictions: {}, results: {}, adminPin: '' }); return; }
+  if (!doc.exists) {
+  console.log("No existing data — but NOT overwriting");
+  return;
+}
   const d = doc.data();
   state.family = Array.isArray(d.family) ? d.family : [];
   state.predictions = d.predictions || {};
